@@ -50,11 +50,7 @@ end
 ---@return nil
 local function toggle_and_fallback(key)
     if not toggle_bool() then
-        if vim.api.nvim_get_mode().mode:find("[vV\22]") then
-            vim.cmd("normal! gv" .. key)
-        else
-            vim.cmd("normal! " .. key)
-        end
+        vim.cmd("normal! " .. key)
     end
 end
 

@@ -12,4 +12,6 @@ When the cursor is over a number, we increment or decrement in exactly the way w
 
 When the cursor is over a word that "looks like" a boolean, we toggle it. Here "looks like" means we compare it to values like `true`, `True`, `yes`, and so on. We don't consider the syntax group or tree-sitter capture to determine this, because we may want to flip booleans inside strings or comments.
 
-This also works as expected in visual and visual-block mode.
+## Caveats
+
+Incrementing and decrementing booleans only works in normal mode.
