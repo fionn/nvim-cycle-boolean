@@ -5,32 +5,23 @@ local termcode = {
     dec = vim.api.nvim_replace_termcodes("<C-x>", true, false, true)
 }
 
-local true_to_false = {
-        ["true"] = "false",
-        ["True"] = "False",
-        ["TRUE"] = "FALSE",
-        ["on"] = "off",
-        ["On"] = "Off",
-        ["yes"] = "no",
-        ["Yes"] = "No",
+local negation_map = {
+    ["true"] = "false",
+    ["false"] = "true",
+    ["True"] = "False",
+    ["False"] = "True"
 }
-
-local false_to_true = {}
-for t, f in pairs(true_to_false) do
-    false_to_true[f] = t
-end
 
 ---@return boolean
 local function toggle_bool()
-    local word = vim.fn.expand("<cword>")
-    local negated = true_to_false[word] or false_to_true[word]
-
+    local negated = negation_map[vim.fn.expand("<cword>")]
     if negated == nil then
         return false
     end
 
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-    local char = vim.api.nvim_get_current_line():sub(col + 1, col + 1)
+    local view = vim.fn.winsaveview()
+
+    local char = vim.api.nvim_get_current_line():sub(view.col + 1, view.col + 1)
     if vim.tbl_contains({"'", "\"", "`"}, char) then
         -- Due to the way ciw works, if we're on a quotation mark for a
         -- boolean-like string we'll replace the quotation mark instead of the
@@ -40,7 +31,6 @@ local function toggle_bool()
         return true
     end
 
-    local view = vim.fn.winsaveview()
     vim.cmd("normal! \"_ciw" .. negated)
     vim.fn.winrestview(view)
     return true
