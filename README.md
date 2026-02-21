@@ -15,3 +15,14 @@ When the cursor is over a word that "looks like" a boolean, we toggle it. Here "
 ## Caveats
 
 Incrementing and decrementing booleans only works in normal mode.
+
+## Alternatives
+
+This isn't a novel idea it seems (https://vi.stackexchange.com/q/5213). It's been implemented by others, in different ways. The below might be better or worse than this plugin.
+
+* [RutaTang/compter.nvim](https://github.com/RutaTang/compter.nvim), more general purpose and configurable,
+* [nat-418/boole.nvim](https://github.com/nat-418/boole.nvim), more general purpose and configurable,
+* [can3p/incbool.vim](https://github.com/can3p/incbool.vim), doesn't fall back to native increment/decrement behaviour,
+* [polirritmico/simple-boolean-toggle.nvim](https://github.com/polirritmico/simple-boolean-toggle.nvim), looks more complex,
+* [vim-scripts/Toggle](https://github.com/vim-scripts/Toggle), doesn't use increment/decrement,
+* [gerazov/toggle-bool.nvim](https://github.com/gerazov/toggle-bool.nvim), doesn't use increment/decrement.
