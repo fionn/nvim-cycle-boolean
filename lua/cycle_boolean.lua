@@ -31,7 +31,7 @@ local function toggle_bool()
         return true
     end
 
-    vim.cmd("normal! \"_ciw" .. negated)
+    vim.cmd.normal({"\"_ciw" .. negated, bang = true})
     vim.fn.winrestview(view)
     return true
 end
