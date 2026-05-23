@@ -1,0 +1,33 @@
+name: CI
+
+on: push
+
+permissions:
+  contents: read
+
+jobs:
+
+  lint:
+
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Install Neovim runtime
+        run: sudo apt-get install -y neovim-runtime
+
+      - name: Install EmmyLua-Check
+        run: |
+          curl -fLSsO https://github.com/EmmyLuaLs/emmylua-analyzer-rust/releases/download/0.23.1/emmylua_check-linux-x64.tar.gz
+          tar -xvf emmylua_check-linux-x64.tar.gz
+
+      - name: Lint
+        run: ./emmylua_check .
+        env:
+          VIMRUNTIME: /usr/share/nvim/runtime/
